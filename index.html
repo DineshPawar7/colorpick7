@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo List</title>
+    <style>
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            color: blueviolet;
+        }
+        .todo-item {
+            color: blue;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #e90909;
+            display: flex ;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .todo-item.completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>my Todo List also</h1>
+    <input type="text" id="todo-input" placeholder="Enter your todo">
+    <button id="add-todo">Add Todo</button>
+    <ul class="todo-list" id="todo-list"></ul>
+
+    <script>
+        
+        
+
+        const todoList = document.getElementById('todo-list');
+        const todoInput = document.getElementById('todo-input');
+        const addTodoButton = document.getElementById('add-todo');
+
+        addTodoButton.addEventListener('click', function() {
+            const todoText = todoInput.value.trim();
+
+            if (todoText) {
+                // Create a new todo item element
+                const todoItem = document.createElement('li');
+                todoItem.classList.add('todo-item');
+
+                // Create the todo text span
+                const todoSpan = document.createElement('span');
+                todoSpan.textContent = todoText;
+                todoItem.appendChild(todoSpan);
+
+                // Create the complete button
+                const completeButton = document.createElement('button');
+                completeButton.textContent = 'Complete';
+                completeButton.addEventListener('click', function() {
+                    todoItem.classList.toggle('completed');
+                });
+                todoItem.appendChild(completeButton);
+
+                // Create the delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', function() {
+                    todoList.removeChild(todoItem);
+                });
+                todoItem.appendChild(deleteButton);
+
+                // Add the new todo item to the list
+                todoList.appendChild(todoItem);
+
+                // Clear the input field
+                todoInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
